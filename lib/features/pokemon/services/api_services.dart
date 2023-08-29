@@ -12,8 +12,7 @@ class ApiServices {
     var response = await dio.get(Endpoints.pokemonDetail,
         options: Options(headers: {
           "Accept": "application/json",
-          "Access-Control-Allow-Origin": true,
-          "Origin": "http://localhost:8080"
+          "Access-Control-Allow-Origin": '*',
         }),
         queryParameters: {"name": name});
     var data = PokemonItemModel.fromJson(response.data);
@@ -29,8 +28,7 @@ class ApiServices {
         queryParameters: {"offset": offset},
         options: Options(headers: {
           "Accept": "application/json",
-          "Access-Control-Allow-Origin": true,
-          "Origin": "http://localhost:8080"
+          "Access-Control-Allow-Origin": '*',
         }));
 
     return response.data;
