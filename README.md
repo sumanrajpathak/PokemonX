@@ -32,7 +32,7 @@ flutter run
 Pokedex using the [PokeAPI](https://pokeapi.co/) for constructing RESTful API.<br>
 PokeAPI provides a RESTful API interface to highly detailed objects built from thousands of lines of data related to Pokémon.
 
-PokeAPI is not directly accessed but proxied through a server created with [Get Dart Frog](https://dartfrog.vgv.dev/): For handling http response for local caching. and hosted in Google Cloud Run.
+PokeAPI is not directly accessed but proxied through a server created with [Dart Frog](https://dartfrog.vgv.dev/): For handling http response for local caching. and hosted in Google Cloud Run.
 
 ### Flutter-Web Demo
 https://sumanrajpathak.com.np/web-demo/
