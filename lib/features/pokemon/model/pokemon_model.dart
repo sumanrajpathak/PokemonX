@@ -46,6 +46,30 @@ class PokemonItemModel {
       types: types,
     );
   }
+  factory PokemonItemModel.fromLocalJson(Map<String, dynamic> map) {
+    final types = map['types'] != null
+        ? (map['types'] as List<dynamic>)
+            .cast<Map<String, dynamic>>()
+            .map((typeMap) {
+            return PokeType.fromJson(typeMap);
+          }).toList()
+        : null;
+    return PokemonItemModel(
+      name: map['name'] as String,
+      image: map['image'] as String,
+      types: types,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['image'] = image;
+    if (types != null) {
+      data['types'] = types!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
 @immutable
@@ -64,6 +88,13 @@ class PokeType {
       type: map['type'] != null ? Type.fromJson(map['type']) : null,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['slot'] = slot;
+    data['type'] = type;
+    return data;
+  }
 }
 
 @immutable
@@ -78,5 +109,11 @@ class Type {
     return Type(
       name: map['name'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    return data;
   }
 }

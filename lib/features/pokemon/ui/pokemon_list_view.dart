@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:web_demo/features/pokemon/widgets/empty_widget.dart';
 import 'package:web_demo/features/pokemon/widgets/pokemon_card.dart';
 import 'package:web_demo/utils/adaptive.dart';
 import '../provider/pokemon_provider.dart';
@@ -19,7 +20,8 @@ class PokemonListView extends ConsumerWidget {
         controller: scrollController
           ..addListener(() {
             if (scrollController.offset ==
-                scrollController.position.maxScrollExtent && !loadMore) {
+                    scrollController.position.maxScrollExtent &&
+                !loadMore) {
               ref.read(asyncPokeProvider.notifier).loadMorePokemons();
             }
           }),
@@ -39,7 +41,7 @@ class PokemonListView extends ConsumerWidget {
                 },
                 decoration: InputDecoration(
                   isDense: false,
-                  contentPadding: EdgeInsets.zero,
+                  contentPadding: const EdgeInsets.only(left: 8),
                   hintText: "Search",
                   hintStyle: Theme.of(context)
                       .textTheme
@@ -52,14 +54,17 @@ class PokemonListView extends ConsumerWidget {
                 ),
               ),
             ),
+            (filter != null && filter.isEmpty)
+                ? const EmptyDataWidget()
+                : const SizedBox.shrink(),
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: isDisplayDesktop(context) ? 4 : 2),
-              itemCount: filter.isNotEmpty ? filter.length : items.length,
+              itemCount: filter?.length ?? items.length,
               itemBuilder: (context, index) {
-                var item = filter.isNotEmpty ? filter[index] : items[index];
+                var item = filter?[index] ?? items[index];
                 return PokeCard(
                     name: item.name!, image: item.image!, type: item.types);
               },
